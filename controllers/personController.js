@@ -15,15 +15,16 @@ exports.person_detail = asyncHandler(async (req, res, next) => {
 
     // Check if id is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(400).json({ message: "Invalid ID" });
+        return res.status(400).json({ message: "Invalid ID" });
     }
 
     const person = await Person.findById(id);
     if (!person) {
-        res.status(404).json({ message: "Person not found" });
+        return res.status(404).json({ message: "Person not found" });
     }
     res.json({ person });
 });
+
 
 // Handle Person create on POST.
 exports.person_create_post = [
