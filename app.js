@@ -1,5 +1,6 @@
 require('dotenv').config({path: './.env'});
 const express = require('express');
+
 const createError = require('http-errors');
 
 const app = express();
@@ -34,6 +35,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // Use routes
 app.use('/api', personsRouter);
+
+app.set('trust proxy', 1)
 
 
 
