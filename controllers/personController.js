@@ -41,7 +41,7 @@ exports.person_create_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            res.json({ person, errors: errors.array() });
+            res.json({ errors: errors.array() });
             return;
         } else {
             // Data from form is valid.
@@ -59,8 +59,7 @@ exports.person_create_post = [
 exports.person_delete_post = asyncHandler(async (req, res, next) => {
     const person = await Person.findByIdAndRemove(req.params.id);
     if (!person) {
-        res.status(404);
-        throw new Error("Person not found");
+        return res.status(404).json({ message: "Person not found" });
     }
     res.json({ message: "Person deleted" });
 });
