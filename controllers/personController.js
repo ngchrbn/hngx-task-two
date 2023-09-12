@@ -82,8 +82,7 @@ exports.person_update_put = [
             // Data is valid.
             const person = await Person.findById(req.params.id);
             if (!person) {
-                res.status(404);
-                throw new Error("Person not found");
+                return res.status(404).json({ message: "Person not found" });
             }
             person.name = req.body.name;
             await person.save();
