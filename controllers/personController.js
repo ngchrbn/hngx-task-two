@@ -41,8 +41,7 @@ exports.person_create_post = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            res.json({ errors: errors.array() });
-            return;
+            return res.status(400).json({ errors: errors.array() });
         } else {
             // Data from form is valid.
             try {
@@ -76,8 +75,7 @@ exports.person_update_put = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            res.json({ errors: errors.array() });
-            return;
+            return res.status(400).json({ errors: errors.array() });
         } else {
             // Data is valid.
             const person = await Person.findById(req.params.id);
