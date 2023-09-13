@@ -56,6 +56,11 @@ exports.person_create_post = [
 
 // Handle Person delete on POST.
 exports.person_delete_post = asyncHandler(async (req, res, next) => {
+
+    // Check if id is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({ message: "Invalid ID" });
+    }
     const person = await Person.findByIdAndRemove(req.params.id);
     if (!person) {
         return res.status(404).json({ message: "Person not found" });
@@ -70,6 +75,12 @@ exports.person_update_put = [
 
     // Process request after validation and sanitization.
     asyncHandler(async (req, res, next) => {
+        
+            // Check if id is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid ID" });
+        }
+
         // Extract the validation errors from a request.
         const errors = validationResult(req);
 
